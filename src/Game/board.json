@@ -1,0 +1,287 @@
+[
+    {
+        "gem": false,
+        "points": 0,
+        "victory-points": 0 
+    },
+        {
+        "gem": false,
+        "points": 1,
+        "victory-points": 0 
+    },
+    {
+        "gem": false,
+        "points": 2,
+        "victory-points": 0 
+    },
+    {
+        "gem": false,
+        "points": 3,
+        "victory-points": 0 
+    },
+    {
+        "gem": false,
+        "points": 4,
+        "victory-points": 0 
+    },
+    {
+        "gem": true,
+        "points": 5,
+        "victory-points": 0 
+    },
+    {
+        "gem": false,
+        "points": 6,
+        "victory-points": 1
+    },
+    {
+        "gem": false,
+        "points": 7,
+        "victory-points": 1
+    },
+    {
+        "gem":false,
+        "points": 8,
+        "victory-points": 1
+    },
+    {
+        "gem": true,
+        "points": 9,
+        "victory-points": 1
+    },
+    {
+        "gem": false,
+        "points": 10,
+        "victory-points": 2
+    },
+    {
+        "gem": false,
+        "points": 11,
+        "victory-points": 2
+    },
+    {
+        "gem": true,
+        "points": 12,
+        "victory-points": 2
+    },
+    {
+        "gem": true,
+        "points": 13,
+        "victory-points": 2
+    },
+    {
+        "gem": false,
+        "points": 14,
+        "victory-points": 3
+    },
+    {
+        "gem": false,
+        "points": 15,
+        "victory-points": 3
+    },
+    {
+        "gem": true,
+        "points": 15,
+        "victory-points": 3
+    },
+    {
+        "gem": false,
+        "points": 16,
+        "victory-points": 3
+    },
+    {
+        "gem": false,
+        "points": 16,
+        "victory-points": 4
+    },
+    {
+        "gem": false,
+        "points": 17,
+        "victory-points": 4
+    },
+    {
+        "gem": true,
+        "points": 17,
+        "victory-points": 4
+    },
+    {
+        "gem": false,
+        "points": 18,
+        "victory-points": 4
+    },
+    {
+        "gem": false,
+        "points": 18,
+        "victory-points": 5
+    },
+    {
+        "gem": false,
+        "points": 19,
+        "victory-points": 5
+    },
+    {
+        "gem": true,
+        "points": 19,
+        "victory-points": 5
+    },
+    {
+        "gem": false,
+        "points": 20,
+        "victory-points": 5
+    },
+    {
+        "gem": false,
+        "points": 20,
+        "victory-points": 6
+    },
+    {
+        "gem": false,
+        "points": 21,
+        "victory-points": 6
+    },
+    {
+        "gem": true,
+        "points": 21,
+        "victory-points": 6
+    },
+    {
+        "gem": false,
+        "points": 22,
+        "victory-points": 7
+    },
+    {
+        "gem": true,
+        "points": 22,
+        "victory-points": 7
+    },
+    {
+        "gem": false,
+        "points": 23,
+        "victory-points": 7
+    },
+    {
+        "gem": false,
+        "points": 23,
+        "victory-points": 7
+    },
+    {
+        "gem": false,
+        "points": 23,
+        "victory-points": 8
+    },
+    {
+        "gem": false,
+        "points": 24,
+        "victory-points": 8
+    },
+    {
+        "gem": true,
+        "points": 24,
+        "victory-points": 8
+    },
+    {
+        "gem": false,
+        "points": 25,
+        "victory-points": 9
+    },
+    {
+        "gem": false,
+        "points": 25,
+        "victory-points": 9
+    },
+    {
+        "gem": false,
+        "points": 26,
+        "victory-points": 9
+    },
+    {
+        "gem": false,
+        "points": 26,
+        "victory-points": 10
+    },
+    {
+        "gem": false,
+        "points": 27,
+        "victory-points": 10
+    },
+    {
+        "gem": true,
+        "points": 27,
+        "victory-points": 10
+    },
+    {
+        "gem": false,
+        "points": 28,
+        "victory-points": 11
+    },
+    {
+        "gem": true,
+        "points": 28,
+        "victory-points": 11
+    },
+    {
+        "gem": false,
+        "points": 29,
+        "victory-points": 11
+    },
+    {
+        "gem": true,
+        "points": 29,
+        "victory-points": 12
+    },
+    {
+        "gem": false,
+        "points": 30,
+        "victory-points": 12
+    },
+    {
+        "gem": true,
+        "points": 30,
+        "victory-points": 12
+    },
+    {
+        "gem": false,
+        "points": 30,
+        "victory-points": 12
+    },
+    {
+        "gem": false,
+        "points": 31,
+        "victory-points": 12
+    },
+    {
+        "gem": false,
+        "points": 31,
+        "victory-points": 13
+    },
+    {
+        "gem": false,
+        "points": 32,
+        "victory-points": 13
+    },
+    {
+        "gem": true,
+        "points": 32,
+        "victory-points": 13
+    },
+    {
+        "gem": false,
+        "points": 33,
+        "victory-points": 14
+    },
+    {
+        "gem": true,
+        "points": 33,
+        "victory-points": 14
+    },
+    {
+        "gem": true,
+        "points": 33,
+        "victory-points": 14
+    },
+    {
+        "gem": false,
+        "points": 35,
+        "victory-points": 15
+    }
+]
