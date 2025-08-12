@@ -60,7 +60,7 @@
         "victory-points": 2
     },
     {
-        "gem": true,
+        "gem": false,
         "points": 12,
         "victory-points": 2
     },
@@ -162,11 +162,6 @@
     {
         "gem": false,
         "points": 23,
-        "victory-points": 7
-    },
-    {
-        "gem": false,
-        "points": 23,
         "victory-points": 8
     },
     {
@@ -225,7 +220,7 @@
         "victory-points": 11
     },
     {
-        "gem": true,
+        "gem": false,
         "points": 29,
         "victory-points": 12
     },
@@ -241,11 +236,6 @@
     },
     {
         "gem": false,
-        "points": 30,
-        "victory-points": 12
-    },
-    {
-        "gem": false,
         "points": 31,
         "victory-points": 12
     },
@@ -266,11 +256,6 @@
     },
     {
         "gem": false,
-        "points": 33,
-        "victory-points": 14
-    },
-    {
-        "gem": true,
         "points": 33,
         "victory-points": 14
     },
