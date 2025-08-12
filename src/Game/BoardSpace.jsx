@@ -21,21 +21,21 @@ function BoardSpace({ space, isStart, token, onClick }) {
             }}
         >
             {isStart && (
-                <span
-                    title="Start"
-                    style={{ position: 'absolute', top: 2, left: 2, fontSize: 18 }}
-                >
-                    🚩
-                </span>
+                 <img 
+                    src="/tokens/droplet.svg" 
+                    alt="droplet" 
+                    title="droplet" 
+                    style={{ width: 35, height: 35, position: 'absolute'}} 
+                />
             )}
-            <div style={{ fontWeight: 'bold' }}>{space.points}</div>
-            <div style={{ color: '#888' }}>VP: {space["victory-points"]}</div>
+            <div style={{ fontWeight: 'bold' }}>{space.coins}</div>
+            <div style={{ color: '#888', position: 'absolute', bottom: 2, left: 2}}>VP: {space["points"]}</div>
             {space.gem && (
                 <img 
                     src="/tokens/gem.svg" 
                     alt="Gem" 
                     title="Gem" 
-                    style={{ width: 16, height: 16, position: 'absolute', top: 2, right: 2}} 
+                    style={{ width: 16, height: 16, position: 'absolute', bottom: 2, right: 2}} 
                 />
             )}
             {token !== undefined && (

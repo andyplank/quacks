@@ -1,7 +1,7 @@
 import React from 'react';
 import { TOKEN_TYPES } from './QuacksGame';
 
-function ShopModal({ isOpen, onClose, onBuyToken, coins, onToggle, roundNumber }) {
+function ShopModal({ isOpen, onClose, onBuyToken, coins, onToggle, roundNumber, onRefill, onDroplet, gems, hasPotion }) {
     return (
         <div style={{ position: 'fixed', left: 0, top: 0, bottom: 0, zIndex: 1000, display: 'flex' }}>
             <div style={{
@@ -35,11 +35,68 @@ function ShopModal({ isOpen, onClose, onBuyToken, coins, onToggle, roundNumber }
                                 ×
                             </button>
                         </div>
-                        <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <strong>Available:</strong>
                             <span>{coins}</span>
                             <img src="/tokens/coin.svg" alt="coins" style={{ width: '20px', height: '20px' }} />
+                            <span>{gems}</span>
+                            <img src="/tokens/gem.svg" alt="gems" style={{ width: '20px', height: '20px' }} />
                         </div>
+                        <div style={{ marginBottom: '10px', marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center'}}>
+                            <button
+                                onClick={onRefill}
+                                style={{
+                                    background: '#8bc34a',
+                                    color: '#fff',
+                                    border: '1px solid #888',
+                                    borderRadius: 4,
+                                    padding: '8px 12px',
+                                    display: 'flex',
+                                    width: '100%',
+                                    fontWeight: 'bold',                                        
+                                    justifyContent: 'space-between',
+                                    cursor: gems < 2 || hasPotion ? 'not-allowed' : 'pointer',
+                                    opacity: gems < 2 || hasPotion ? 0.5 : 1,
+                                }}
+                                title="Refill (2 gems)"
+                                disabled={gems < 2 || hasPotion}
+                            >                          
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span>Refill</span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <span>2</span>
+                                    <img src="/tokens/gem.svg" alt="gem" style={{ width: '20px', height: '20px' }} />
+                                </div>
+                            </button>
+                            <button
+                                onClick={onDroplet}
+                                style={{
+                                    background: '#03a9f4',
+                                    color: '#fff',
+                                    border: '1px solid #888',
+                                    borderRadius: 4,
+                                    padding: '8px 12px',
+                                    display: 'flex',
+                                    fontWeight: 'bold', 
+                                    width: '100%',                                       
+                                    justifyContent: 'space-between',
+                                    cursor: gems < 2 ? 'not-allowed' : 'pointer',
+                                    opacity: gems < 2 ? 0.5 : 1,
+                                }}
+                                title="Droplet (2 gems)"
+                                disabled={gems < 2}
+                            >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span>Droplet</span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <span>2</span>
+                                    <img src="/tokens/gem.svg" alt="gem" style={{ width: '20px', height: '20px' }} />
+                                </div>
+                            </button>
+                        </div>
+                        <h4 style={{textAlign: 'left'}}>Tokens</h4>
                         <div style={{ 
                             display: 'flex',
                             flexDirection: 'column',
