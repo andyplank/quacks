@@ -2,25 +2,25 @@ import boardData from './board.json';
 import { INVALID_MOVE } from 'boardgame.io/core';
 
 export const TOKEN_TYPES = [
-    { id: 'Boomberry 1', color: '#92bad1', image: '/tokens/boomberry.svg', value: 1, cost: -1, forSale: false },
-    { id: 'Boomberry 2', color: '#92bad1', image: '/tokens/boomberry.svg', value: 2, cost: -1, forSale: false },
-    { id: 'Boomberry 3', color: '#92bad1', image: '/tokens/boomberry.svg', value: 3, cost: -1, forSale: false },
-    { id: 'Spider 1', color: '#009b52', image: '/tokens/spider.svg', value: 1, cost: 4, forSale: true },
-    { id: 'Spider 2', color: '#009b52', image: '/tokens/spider.svg', value: 2, cost: 8, forSale: true },
-    { id: 'Spider 4', color: '#009b52', image: '/tokens/spider.svg', value: 4, cost: 14, forSale: true },
-    { id: 'Pumpkin 1', color: '#f98b36', image: '/tokens/pumpkin.svg', value: 1, cost: 3, forSale: true },
-    { id: 'Pumpkin 6', color: '#f98b36', image: '/tokens/pumpkin.svg', value: 6, cost: 22, forSale: true },
-    { id: 'Ghost 1', color: '#bf37a8', image: '/tokens/ghost.svg', value: 1, cost: 9, forSale: true },
-    { id: 'Mushroom 1', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 1, cost: 6, forSale: true },
-    { id: 'Mushroom 2', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 2, cost: 10, forSale: true },
-    { id: 'Mushroom 4', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 4, cost: 16, forSale: true },
-    { id: 'Mandrake Root 1', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 1, cost: 8, forSale: false },
-    { id: 'Mandrake Root 2', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 2, cost: 12, forSale: true },
-    { id: 'Mandrake Root 4', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 4, cost: 18, forSale: false },
-    { id: 'Crow 1', color: '#2610e5ff', image: '/tokens/crow.svg', value: 1, cost: 5, forSale: true },
-    { id: 'Crow 2', color: '#2610e5ff', image: '/tokens/crow.svg', value: 2, cost: 10, forSale: true },
-    { id: 'Crow 4', color: '#2610e5ff', image: '/tokens/crow.svg', value: 4, cost: 19, forSale: true },
-    { id: 'Moth 1', color: '#2610e5ff', image: '/tokens/moth.svg', value: 1, cost: 10, forSale: false },
+    { id: 'Boomberry 1', color: '#92bad1', image: '/tokens/boomberry.svg', value: 1, cost: -1, saleQuantity: -1, saleStartRound: 0 },
+    { id: 'Boomberry 2', color: '#92bad1', image: '/tokens/boomberry.svg', value: 2, cost: -1, saleQuantity: -1, saleStartRound: 0 },
+    { id: 'Boomberry 3', color: '#92bad1', image: '/tokens/boomberry.svg', value: 3, cost: -1, saleQuantity: -1, saleStartRound: 0 },
+    { id: 'Spider 1', color: '#009b52', image: '/tokens/spider.svg', value: 1, cost: 4, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Spider 2', color: '#009b52', image: '/tokens/spider.svg', value: 2, cost: 8, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Spider 4', color: '#009b52', image: '/tokens/spider.svg', value: 4, cost: 14, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Pumpkin 1', color: '#f98b36', image: '/tokens/pumpkin.svg', value: 1, cost: 3, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Pumpkin 6', color: '#f98b36', image: '/tokens/pumpkin.svg', value: 6, cost: 22, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Ghost 1', color: '#bf37a8', image: '/tokens/ghost.svg', value: 1, cost: 9, saleQuantity: 10, saleStartRound: 3 },
+    { id: 'Mushroom 1', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 1, cost: 6, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Mushroom 2', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 2, cost: 10, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Mushroom 4', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 4, cost: 16, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Mandrake Root 1', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 1, cost: 8, saleQuantity: 10, saleStartRound: 1 },
+    { id: 'Mandrake Root 2', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 2, cost: 12, saleQuantity: 10, saleStartRound: 1 },
+    { id: 'Mandrake Root 4', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 4, cost: 18, saleQuantity: 10, saleStartRound: 1 },
+    { id: 'Crow 1', color: '#2610e5ff', image: '/tokens/crow.svg', value: 1, cost: 5, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Crow 2', color: '#2610e5ff', image: '/tokens/crow.svg', value: 2, cost: 10, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Crow 4', color: '#2610e5ff', image: '/tokens/crow.svg', value: 4, cost: 19, saleQuantity: 10, saleStartRound: 0 },
+    { id: 'Moth 1', color: '#2610e5ff', image: '/tokens/moth.svg', value: 1, cost: 10, saleQuantity: 10, saleStartRound: 0 },
 ];
 
 // Helper to get token stats by ID
@@ -262,6 +262,7 @@ export const QuacksGame = {
 					if (player.boomed) return INVALID_MOVE;
 					const token = getTokenStats(tokenId);
 					if (!token || player.coins < token.cost) return INVALID_MOVE;
+					token.saleQuantity -= 1;
 					player.coins -= token.cost;
 					player.bag.push(tokenId);
 				},

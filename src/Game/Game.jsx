@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Client } from 'boardgame.io/react';
-import { QuacksGame, getTokenStats, checkReward, checkBoom, TOKEN_TYPES } from './QuacksGame';
+import { QuacksGame, getTokenStats, checkReward } from './QuacksGame';
 import BoardSpace from './BoardSpace';
+import ShopModal from './ShopModal';
 
 function QuacksBoard({ ctx, G, moves }) {
+	const [isShopOpen, setIsShopOpen] = useState(false);
 	const player = G.players[ctx.currentPlayer];
 	const startIndex = player.start;
 	return (
@@ -53,30 +55,23 @@ function QuacksBoard({ ctx, G, moves }) {
 					</div>
 				</div>
 			</div>
-			<div>
-				<h3>Buy Tokens</h3>
-				<button className="btn-action" onClick={() => moves.shop()}>shop</button>
-				<button className="btn-action" onClick={() => moves.reward()}>reward</button>
-				<div style={{ display: 'flex', gap: 10 }}>
-					{TOKEN_TYPES.filter(token => token.forSale).map((token) => (
-						<button
-							key={token.id}
-							onClick={() => moves.buyToken(token.id)}
-							style={{
-								background: token.color,
-								color: '#fff',
-								border: '1px solid #888',
-								borderRadius: 4,
-								padding: '8px 12px',
-								minWidth: 60,
-								fontWeight: 'bold',
-								cursor: 'pointer',
-							}}
-							title={`Buy ${token.id} for ${token.cost} coins`}
-						>
-							{token.id} ({token.cost})
-						</button>
-					))}
+			<div style={{ position: 'relative', marginTop: '20px' }}>
+				<div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+					<button
+						className="btn-action"
+						onClick={() => moves.reward()}
+						style={{
+							background: '#4caf50',
+							color: '#fff',
+							border: '1px solid #888',
+							borderRadius: 4,
+							padding: '8px 12px',
+							fontWeight: 'bold',
+							cursor: 'pointer',
+						}}
+					>
+						Reward
+					</button>
 					<button
 						onClick={() => moves.refill()}
 						style={{
@@ -85,13 +80,14 @@ function QuacksBoard({ ctx, G, moves }) {
 							border: '1px solid #888',
 							borderRadius: 4,
 							padding: '8px 12px',
-							minWidth: 60,
 							fontWeight: 'bold',
-							cursor: 'pointer',
+							cursor: player.gems < 2 || player.potion ? 'not-allowed' : 'pointer',
+							opacity: player.gems < 2 || player.potion ? 0.5 : 1,
 						}}
-						title="Refill"
+						title="Refill (2 gems)"
+						disabled={player.gems < 2 || player.potion}
 					>
-						Refill
+						Refill 💎×2
 					</button>
 					<button
 						onClick={() => moves.droplet()}
@@ -101,15 +97,27 @@ function QuacksBoard({ ctx, G, moves }) {
 							border: '1px solid #888',
 							borderRadius: 4,
 							padding: '8px 12px',
-							minWidth: 60,
 							fontWeight: 'bold',
-							cursor: 'pointer',
+							cursor: player.gems < 2 ? 'not-allowed' : 'pointer',
+							opacity: player.gems < 2 ? 0.5 : 1,
 						}}
-						title="Droplet"
+						title="Droplet (2 gems)"
+						disabled={player.gems < 2}
 					>
-						Droplet
+						Droplet 💎×2
 					</button>
 				</div>
+				<ShopModal 
+					isOpen={isShopOpen}
+					onClose={() => setIsShopOpen(false)}
+					onToggle={() => setIsShopOpen(!isShopOpen)}
+					onBuyToken={(tokenId) => {
+						moves.buyToken(tokenId);
+						if (!player.coins) setIsShopOpen(false);
+					}}
+					coins={player.coins}
+					roundNumber={ctx.turn}
+				/>
 			</div>
 		</div>
 	);
