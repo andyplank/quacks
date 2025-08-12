@@ -28,7 +28,7 @@ function BoardSpace({ space, isStart, token, onClick }) {
                     style={{ width: 35, height: 35, position: 'absolute'}} 
                 />
             )}
-            <div style={{ fontWeight: 'bold' }}>{space.coins}</div>
+            <div style={{ fontWeight: 'bold' }}>{space.points}</div>
             <div style={{ color: '#888', position: 'absolute', bottom: 2, left: 2}}>VP: {space["points"]}</div>
             {space.gem && (
                 <img 
