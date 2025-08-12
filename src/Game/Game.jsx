@@ -1,16 +1,37 @@
 import React from 'react';
 import { Client } from 'boardgame.io/react';
-import { QuacksGame, getTokenStats, getCurrentReward, TOKEN_TYPES } from './QuacksGame';
+import { QuacksGame, getTokenStats, checkReward, TOKEN_TYPES } from './QuacksGame';
 
 function QuacksBoard({ ctx, G, moves }) {
 	const player = G.players[ctx.currentPlayer];
 	const startIndex = player.start;
 	return (
 		<div>
+			{player.boomed && (
+				<h1 style={{ color: 'red', fontSize: '3em', textAlign: 'center' }}>BOOM!</h1>
+			)}
 			<h2>Player {ctx.currentPlayer}'s Turn</h2>
-			<div>Rewards {JSON.stringify(getCurrentReward(player))}</div>
+			<div>Rewards {JSON.stringify(checkReward(player))}</div>
 			<div>
 				<button onClick={() => moves.drawToken()}>Draw Token</button>
+				<button onClick={() => moves.pass()}>pass</button>
+				{player.options && player.options.length > 0 && typeof moves.option === 'function' && (
+					<div style={{ margin: '16px 0' }}>
+						<h3>Options</h3>
+						{player.options.map((opt, idx) => (
+							<button
+								key={opt}
+								onClick={() => moves.option(opt)}
+								style={{ marginRight: 8 }}
+							>
+								{opt}
+							</button>
+						))}
+						<button onClick={() => moves.option(-1)} style={{ marginLeft: 8 }}>
+							Cancel
+						</button>
+					</div>
+				)}
 				<div style={{ marginTop: 20 }}>
 					<h3>Board (Rewards)</h3>
 					<div style={{ display: 'flex', flexWrap: 'wrap', width: 600 }}>
@@ -71,6 +92,8 @@ function QuacksBoard({ ctx, G, moves }) {
 			</div>
 			<div>
 				<h3>Buy Tokens</h3>
+				<button onClick={() => moves.shop()}>shop</button>
+				<button onClick={() => moves.reward()}>reward</button>
 				<div style={{ display: 'flex', gap: 10 }}>
 					{TOKEN_TYPES.filter(token => token.forSale).map((token) => (
 						<button
@@ -100,7 +123,7 @@ function QuacksBoard({ ctx, G, moves }) {
 const QuacksClient = Client({
 	game: QuacksGame,
 	board: QuacksBoard,
-	numPlayers: 2,
+	numPlayers: 1,
 });
 
 export default QuacksClient;

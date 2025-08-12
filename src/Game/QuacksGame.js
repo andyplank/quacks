@@ -6,8 +6,22 @@ export const TOKEN_TYPES = [
     { id: 'Boomberry 2', color: '#92bad1', value: 2, cost: -1, forSale: false, effect: null },
     { id: 'Boomberry 3', color: '#92bad1', value: 3, cost: -1, forSale: false, effect: null },
     { id: 'Spider 1', color: '#009b52', value: 1, cost: 4, forSale: true, effect: null },
+    { id: 'Spider 2', color: '#009b52', value: 2, cost: 8, forSale: true, effect: null },
+    { id: 'Spider 4', color: '#009b52', value: 4, cost: 14, forSale: true, effect: null },
     { id: 'Pumpkin 1', color: '#f98b36', value: 1, cost: 3, forSale: true, effect: null },
+    { id: 'Pumpkin 6', color: '#f98b36', value: 6, cost: 22, forSale: true, effect: null },
     { id: 'Ghost 1', color: '#bf37a8', value: 1, cost: 9, forSale: true, effect: null },
+	{ id: 'Mushroom 1', color: '#f02222ff', value: 1, cost: 6, forSale: true, effect: null },
+	{ id: 'Mushroom 2', color: '#f02222ff', value: 2, cost: 10, forSale: true, effect: null },
+	{ id: 'Mushroom 4', color: '#f02222ff', value: 4, cost: 16, forSale: true, effect: null },
+	{ id: 'Mandrake Root 1', color: '#f9d236ff', value: 1, cost: 8, forSale: false, effect: null },
+	{ id: 'Mandrake Root 2', color: '#f9d236ff', value: 2, cost: 12, forSale: true, effect: null },
+	{ id: 'Mandrake Root 4', color: '#f9d236ff', value: 4, cost: 18, forSale: false, effect: null },
+	{ id: 'Crow 1', color: '#2610e5ff', value: 1, cost: 5, forSale: true, effect: null },
+	{ id: 'Crow 2', color: '#2610e5ff', value: 2, cost: 10, forSale: true, effect: null },
+	{ id: 'Crow 4', color: '#2610e5ff', value: 4, cost: 19, forSale: true, effect: null },
+	{ id: 'Moth 1', color: '#2610e5ff', value: 1, cost: 10, forSale: false, effect: null },
+
 ];
 
 // Helper to get token stats by ID
@@ -16,12 +30,12 @@ export function getTokenStats(tokenId) {
 }
 
 // Helper to get the current reward for a player
-export function getCurrentReward(player) {
-    const space = player.board[player.next];
+export function checkReward(player) {
+	let space = player.board[player.next];
     if (!space) return null;
-    return {
-        gem: space.gem,
-        points: space.points,
+	return {
+        gem: space.gem ? 1 : 0,
+        coins: space.points,
         victoryPoints: space["victory-points"]
     };
 }
@@ -40,6 +54,79 @@ function createBag() {
   ];
 }
 
+function checkBoom(player) {
+	let boom = 0;
+	for (let i = 0; i < player.board.length; i++) {
+		if (player.board[i].token === 'Boomberry 1') boom += 1;
+		if (player.board[i].token === 'Boomberry 2') boom += 2;
+		if (player.board[i].token === 'Boomberry 3') boom += 3;
+		if (boom > 7) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function checkSpider(player) {
+	let spiders = 0;
+	let i = player.next;
+	if (player.board[i].token === 'Spider 1') spiders += 1;
+	i--;
+	if (player.board[i].token === 'Spider 1') spiders += 1;
+	return spiders;
+}
+
+function checkPumpkin(player) {
+	let pumpkins = 0;
+	for (let i = 0; i < player.board.length; i++) {
+		if (player.board[i].token === 'Pumpkin 1' || player.board[i].token === 'Pumpkin 6') pumpkins += 1;
+	}
+	return pumpkins;
+}
+
+function checkGhost(player) {
+	let ghosts = 0;
+	for (let i = 0; i < player.board.length; i++) {
+		if (player.board[i].token === 'Ghost 1') ghosts += 1;
+	}
+	return ghosts;
+}
+
+function placeToken(player, tokenId) {
+	const token = getTokenStats(tokenId)
+	let index = player.next + token.value-1;
+	if (token.id.startsWith('Mandrake')) {
+		const tokenPrevId = player.board[player.next - 1].token;
+		if (tokenPrevId.startsWith('Boomberry')) {
+			player.bag.push(tokenPrevId);
+			player.board[player.next - 1].token = "";
+		}
+	}
+	if (token.id.startsWith('Mushroom')) {
+		const pumpkins = checkPumpkin(player);
+		if (pumpkins >= 1 && pumpkins <= 2) {
+			index += 1;
+		} else if (pumpkins >= 3) {
+			index += 2;
+		}
+	}
+	if (token.id.startsWith('Crow')) {
+		const draw = token.value;
+		for (let i = 0; i < draw; i++) {
+			if (player.bag.length === 0) break;
+			const idx = Math.floor(Math.random() * player.bag.length);
+			const crowTokenId = player.bag[idx];
+			player.bag.splice(idx, 1);
+			player.options.push(crowTokenId);
+		}
+	}
+	player.board[index].token = tokenId;
+	player.next = index + 1;
+	if (checkBoom(player)) {
+		player.boomed = true;
+	}
+}
+
 export const QuacksGame = {
     setup: ({ctx}) => { 
         const players = {};
@@ -52,6 +139,10 @@ export const QuacksGame = {
 				bagCopy: createBag(),
                 victoryPoints: 0,
 				coins: 0,
+				gems: 2,
+				passed: false,
+				boomed: false,
+				options: []
             };
         }
 		console.log(players);
@@ -63,28 +154,82 @@ export const QuacksGame = {
 	phases: {
 		brew: {
 			moves: {
-				drawToken({ G, playerID }, id) {
+				option({ G, playerID }, tokenId) {
 					const player = G.players[playerID];
+					if (player.options.length === 0) return INVALID_MOVE;
+					if (tokenId === -1 ) {
+						player.options.forEach(tokenId => {
+							player.bag.push(tokenId);
+						});
+						player.options = [];
+						return;
+					}
+					const idx = player.options.findIndex(id => id === tokenId);
+					if (idx === -1) return INVALID_MOVE;
+					player.options.splice(idx, 1);
+					player.options.forEach(tokenId => {
+						player.bag.push(tokenId);
+					});
+					player.options = [];
+					placeToken(player, tokenId);
+				},
+				drawToken({ G, ctx, playerID }, id) {
+					const player = G.players[playerID];
+					if (player.options.length > 0) return INVALID_MOVE;
 					if (player.bag.length === 0) return INVALID_MOVE;
+					if (player.boomed || player.passed) return INVALID_MOVE;
 					const idx = Math.floor(Math.random() * player.bag.length);
 					const tokenId = player.bag[idx];
 					player.bag.splice(idx, 1);
-					player.board[player.next].token = tokenId;
-					player.next = player.next + getTokenStats(tokenId).value;
+					player.options = [];
+					placeToken(player, tokenId);
+				},
+				pass({ G, playerID }) {
+					const player = G.players[playerID];
+					if (player.boomed || player.passed) return INVALID_MOVE;
+					player.passed = true;
 				}
 			},
-			endIf: ({G, playerID}) => {
-				const player = G.players[playerID];
-				if (player === undefined) return false;
-				return player.bag.length === 0;
+			endIf: ({G}) => {
+				const playerKeys = Object.keys(G.players);
+				for (let i = 0; i < playerKeys.length; i++) {
+					const player = G.players[i];				
+					if (!player.boomed && !player.passed) {
+						return false;
+					}
+				}
+				return true;
 			},
 			next: 'buy',
     		start: true,
+			onStart:  ({ G, ctx }) => { 
+				for (let i = 0; i < ctx.numPlayers; i++) {
+					const player = G.players[i];
+					player.bagCopy = player.bag;
+				}
+			}, 
 			onEnd: ({ G, ctx }) => { 
 				for (let i = 0; i < ctx.numPlayers; i++) {
 					const player = G.players[i];
-					const rewards = getCurrentReward(player);
-					player.coins = rewards.coins;
+					if (!player.boomed) {
+						const rewards = checkReward(player);
+						player.gem += rewards.gem;
+						player.coins = rewards.coins + 100;
+						player.victoryPoints += rewards.victoryPoints;
+					}
+					player.gems += checkSpider(player);
+					const ghosts = checkGhost(player);
+					if (ghosts === 1) {
+						player.victoryPoints += 1;
+					} else if (ghosts === 2) {
+						player.victoryPoints += 1;
+						player.gems += 1;
+					} else if (ghosts >= 3) {
+						player.victoryPoints += 2;
+						player.start += 1;
+					}
+					player.bag = player.bagCopy;
+					player.passed = false;
 				}
 			}
 		},
@@ -93,13 +238,56 @@ export const QuacksGame = {
         	moves: { 
 				buyToken({ G, playerID }, tokenId) {
 					const player = G.players[playerID];
-					console.log(G);
+					if (player.boomed) return INVALID_MOVE;
 					const token = getTokenStats(tokenId);
 					if (!token || player.coins < token.cost) return INVALID_MOVE;
 					player.coins -= token.cost;
 					player.bag.push(tokenId);
+				},
+				reward({ G, playerID }) {
+					const player = G.players[playerID];
+					if (!player.boomed) return INVALID_MOVE;
+					player.boomed = false;
+					player.passed = true;
+					const rewards = checkReward(player);
+					player.gems += rewards.gems;
+					player.coins = rewards.coins;
+					player.victoryPoints += rewards.victoryPoints;
+				},
+				shop({ G, playerID }) {
+					const player = G.players[playerID];
+					if (!player.boomed) return INVALID_MOVE;
+					player.boomed = false;
+				},
+				pass({ G, playerID }) {
+					const player = G.players[playerID];
+					if (player.boomed || player.passed) return INVALID_MOVE;
+					player.passed = true;
 				}
 			},
+			next: 'brew',
+			endIf: ({G}) => {
+				const playerKeys = Object.keys(G.players);
+				for (let i = 0; i < playerKeys.length; i++) {
+					const player = G.players[i];				
+					if (!player.passed) {
+						return false;
+					}
+				}
+				return true;
+			},
+			onEnd: ({ G, ctx }) => { 
+				for (let i = 0; i < ctx.numPlayers; i++) {
+					const player = G.players[i];
+					const rewards = checkReward(player);
+					player.coins = rewards.coins;
+					player.bagCopy = player.bag;
+					player.next = player.start + 1;
+					player.boomed = false;
+					player.passed = false;
+					player.board = createBoard();
+				}
+			}
       	},
 	},
 
