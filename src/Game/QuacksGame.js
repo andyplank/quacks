@@ -120,10 +120,16 @@ function placeToken(player, tokenId) {
 			player.options.push(crowTokenId);
 		}
 	}
+	if (index >= 52) { 
+		index = 52;
+	}
 	player.board[index].token = tokenId;
 	player.next = index + 1;
 	if (checkBoom(player)) {
 		player.boomed = true;
+	}
+	if (player.next === 53 && !player.boomed) {
+		player.passed = true;
 	}
 }
 
@@ -142,10 +148,10 @@ export const QuacksGame = {
 				gems: 2,
 				passed: false,
 				boomed: false,
+				potion: true,
 				options: []
             };
         }
-		console.log(players);
         return {
             players,
         };
@@ -184,6 +190,14 @@ export const QuacksGame = {
 					player.options = [];
 					placeToken(player, tokenId);
 				},
+				potion({ G, ctx, playerID }, idx) {
+					const player = G.players[playerID];
+					if (player.potion === false) return INVALID_MOVE;
+					const token = player.board[idx].token;
+					player.board[idx].token = "";
+					player.bag.push(token);
+					player.potion = false;
+				},
 				pass({ G, playerID }) {
 					const player = G.players[playerID];
 					if (player.boomed || player.passed) return INVALID_MOVE;
@@ -211,10 +225,10 @@ export const QuacksGame = {
 			onEnd: ({ G, ctx }) => { 
 				for (let i = 0; i < ctx.numPlayers; i++) {
 					const player = G.players[i];
+					const rewards = checkReward(player);
+					player.gems += rewards.gem;
+					player.coins = rewards.coins + 100;
 					if (!player.boomed) {
-						const rewards = checkReward(player);
-						player.gem += rewards.gem;
-						player.coins = rewards.coins + 100;
 						player.victoryPoints += rewards.victoryPoints;
 					}
 					player.gems += checkSpider(player);
@@ -250,14 +264,26 @@ export const QuacksGame = {
 					player.boomed = false;
 					player.passed = true;
 					const rewards = checkReward(player);
-					player.gems += rewards.gems;
-					player.coins = rewards.coins;
 					player.victoryPoints += rewards.victoryPoints;
 				},
 				shop({ G, playerID }) {
 					const player = G.players[playerID];
 					if (!player.boomed) return INVALID_MOVE;
 					player.boomed = false;
+				},
+				refill({G, playerID}) {
+					const player = G.players[playerID];
+					if (player.passed) return INVALID_MOVE;
+					if (player.gems < 2 || player.potion) return INVALID_MOVE;
+					player.potion = true;
+					player.gems -= 2;
+				},
+				droplet({G, playerID}) {
+					const player = G.players[playerID];
+					if (player.passed) return INVALID_MOVE;
+					if (player.gems < 2) return INVALID_MOVE;
+					player.gems -= 2;
+					player.start += 1;
 				},
 				pass({ G, playerID }) {
 					const player = G.players[playerID];

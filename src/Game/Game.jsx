@@ -39,8 +39,9 @@ function QuacksBoard({ ctx, G, moves }) {
 							const isStart = i === startIndex;
 							const token = getTokenStats(space.token);
 							return (
-								<div
+								<button
 									key={i}
+									onClick={() => moves.potion(i)}
 									style={{
 										border: '1px solid #ccc',
 										width: 50,
@@ -53,6 +54,8 @@ function QuacksBoard({ ctx, G, moves }) {
 										fontSize: 10,
 										background: space.gem ? '#e0f7fa' : '#fff',
 										position: 'relative',
+										cursor: 'pointer',
+										padding: 0,
 									}}
 								>
 									{isStart && (
@@ -84,7 +87,7 @@ function QuacksBoard({ ctx, G, moves }) {
 											{token.value}
 										</span>
 									)}
-								</div>
+								</button>
 							);
 						})}
 					</div>
@@ -114,6 +117,38 @@ function QuacksBoard({ ctx, G, moves }) {
 							{token.id} ({token.cost})
 						</button>
 					))}
+					<button
+						onClick={() => moves.refill()}
+						style={{
+							background: '#8bc34a',
+							color: '#fff',
+							border: '1px solid #888',
+							borderRadius: 4,
+							padding: '8px 12px',
+							minWidth: 60,
+							fontWeight: 'bold',
+							cursor: 'pointer',
+						}}
+						title="Refill"
+					>
+						Refill
+					</button>
+					<button
+						onClick={() => moves.droplet()}
+						style={{
+							background: '#03a9f4',
+							color: '#fff',
+							border: '1px solid #888',
+							borderRadius: 4,
+							padding: '8px 12px',
+							minWidth: 60,
+							fontWeight: 'bold',
+							cursor: 'pointer',
+						}}
+						title="Droplet"
+					>
+						Droplet
+					</button>
 				</div>
 			</div>
 		</div>
