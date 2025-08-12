@@ -2,26 +2,25 @@ import boardData from './board.json';
 import { INVALID_MOVE } from 'boardgame.io/core';
 
 export const TOKEN_TYPES = [
-    { id: 'Boomberry 1', color: '#92bad1', value: 1, cost: -1, forSale: false, effect: null },
-    { id: 'Boomberry 2', color: '#92bad1', value: 2, cost: -1, forSale: false, effect: null },
-    { id: 'Boomberry 3', color: '#92bad1', value: 3, cost: -1, forSale: false, effect: null },
-    { id: 'Spider 1', color: '#009b52', value: 1, cost: 4, forSale: true, effect: null },
-    { id: 'Spider 2', color: '#009b52', value: 2, cost: 8, forSale: true, effect: null },
-    { id: 'Spider 4', color: '#009b52', value: 4, cost: 14, forSale: true, effect: null },
-    { id: 'Pumpkin 1', color: '#f98b36', value: 1, cost: 3, forSale: true, effect: null },
-    { id: 'Pumpkin 6', color: '#f98b36', value: 6, cost: 22, forSale: true, effect: null },
-    { id: 'Ghost 1', color: '#bf37a8', value: 1, cost: 9, forSale: true, effect: null },
-	{ id: 'Mushroom 1', color: '#f02222ff', value: 1, cost: 6, forSale: true, effect: null },
-	{ id: 'Mushroom 2', color: '#f02222ff', value: 2, cost: 10, forSale: true, effect: null },
-	{ id: 'Mushroom 4', color: '#f02222ff', value: 4, cost: 16, forSale: true, effect: null },
-	{ id: 'Mandrake Root 1', color: '#f9d236ff', value: 1, cost: 8, forSale: false, effect: null },
-	{ id: 'Mandrake Root 2', color: '#f9d236ff', value: 2, cost: 12, forSale: true, effect: null },
-	{ id: 'Mandrake Root 4', color: '#f9d236ff', value: 4, cost: 18, forSale: false, effect: null },
-	{ id: 'Crow 1', color: '#2610e5ff', value: 1, cost: 5, forSale: true, effect: null },
-	{ id: 'Crow 2', color: '#2610e5ff', value: 2, cost: 10, forSale: true, effect: null },
-	{ id: 'Crow 4', color: '#2610e5ff', value: 4, cost: 19, forSale: true, effect: null },
-	{ id: 'Moth 1', color: '#2610e5ff', value: 1, cost: 10, forSale: false, effect: null },
-
+    { id: 'Boomberry 1', color: '#92bad1', image: '/tokens/boomberry.svg', value: 1, cost: -1, forSale: false },
+    { id: 'Boomberry 2', color: '#92bad1', image: '/tokens/boomberry.svg', value: 2, cost: -1, forSale: false },
+    { id: 'Boomberry 3', color: '#92bad1', image: '/tokens/boomberry.svg', value: 3, cost: -1, forSale: false },
+    { id: 'Spider 1', color: '#009b52', image: '/tokens/spider.svg', value: 1, cost: 4, forSale: true },
+    { id: 'Spider 2', color: '#009b52', image: '/tokens/spider.svg', value: 2, cost: 8, forSale: true },
+    { id: 'Spider 4', color: '#009b52', image: '/tokens/spider.svg', value: 4, cost: 14, forSale: true },
+    { id: 'Pumpkin 1', color: '#f98b36', image: '/tokens/pumpkin.svg', value: 1, cost: 3, forSale: true },
+    { id: 'Pumpkin 6', color: '#f98b36', image: '/tokens/pumpkin.svg', value: 6, cost: 22, forSale: true },
+    { id: 'Ghost 1', color: '#bf37a8', image: '/tokens/ghost.svg', value: 1, cost: 9, forSale: true },
+    { id: 'Mushroom 1', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 1, cost: 6, forSale: true },
+    { id: 'Mushroom 2', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 2, cost: 10, forSale: true },
+    { id: 'Mushroom 4', color: '#f02222ff', image: '/tokens/mushroom.svg', value: 4, cost: 16, forSale: true },
+    { id: 'Mandrake Root 1', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 1, cost: 8, forSale: false },
+    { id: 'Mandrake Root 2', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 2, cost: 12, forSale: true },
+    { id: 'Mandrake Root 4', color: '#f9d236ff', image: '/tokens/mandrake.svg', value: 4, cost: 18, forSale: false },
+    { id: 'Crow 1', color: '#2610e5ff', image: '/tokens/crow.svg', value: 1, cost: 5, forSale: true },
+    { id: 'Crow 2', color: '#2610e5ff', image: '/tokens/crow.svg', value: 2, cost: 10, forSale: true },
+    { id: 'Crow 4', color: '#2610e5ff', image: '/tokens/crow.svg', value: 4, cost: 19, forSale: true },
+    { id: 'Moth 1', color: '#2610e5ff', image: '/tokens/moth.svg', value: 1, cost: 10, forSale: false },
 ];
 
 // Helper to get token stats by ID
@@ -38,6 +37,20 @@ export function checkReward(player) {
         coins: space.coins,
         points: space.points
     };
+}
+
+export function checkBoom(player) {
+	let boom = 0;
+	for (let i = 0; i < player.board.length; i++) {
+		if (player.board[i].token === 'Boomberry 1') boom += 1;
+		if (player.board[i].token === 'Boomberry 2') boom += 2;
+		if (player.board[i].token === 'Boomberry 3') boom += 3;
+		if (boom > 7) {
+			return true;
+		}
+	}
+	player.boom = boom;
+	return false;
 }
 
 function createBoard() {
@@ -58,19 +71,6 @@ function createBag() {
     ...Array(1).fill('Spider 1'),
     ...Array(1).fill('Pumpkin 1'),
   ];
-}
-
-function checkBoom(player) {
-	let boom = 0;
-	for (let i = 0; i < player.board.length; i++) {
-		if (player.board[i].token === 'Boomberry 1') boom += 1;
-		if (player.board[i].token === 'Boomberry 2') boom += 2;
-		if (player.board[i].token === 'Boomberry 3') boom += 3;
-		if (boom > 7) {
-			return true;
-		}
-	}
-	return false;
 }
 
 function checkSpider(player) {
@@ -152,6 +152,7 @@ export const QuacksGame = {
                 points: 0,
 				coins: 0,
 				gems: 2,
+				boom: 0,
 				passed: false,
 				boomed: false,
 				potion: true,
@@ -312,6 +313,7 @@ export const QuacksGame = {
 				for (let i = 0; i < ctx.numPlayers; i++) {
 					const player = G.players[i];
 					player.coins = 0;
+					player.boom = 0;
 					player.bagCopy = player.bag;
 					player.next = player.start + 1;
 					player.boomed = false;
