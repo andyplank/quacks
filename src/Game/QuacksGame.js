@@ -35,13 +35,19 @@ export function checkReward(player) {
     if (!space) return null;
 	return {
         gem: space.gem ? 1 : 0,
-        coins: space.points,
-        victoryPoints: space["victory-points"]
+        coins: space.coins,
+        points: space.points
     };
 }
 
 function createBoard() {
     return boardData.map((space, i) => ({ ...space, token: "", index: i }));
+}
+
+function resetBoard(board) {
+	for (const key in board) {
+		board[key].token = "";
+	}
 }
 
 function createBag() {
@@ -143,7 +149,7 @@ export const QuacksGame = {
 				next: 1,
                 bag: createBag(),
 				bagCopy: createBag(),
-                victoryPoints: 0,
+                points: 0,
 				coins: 0,
 				gems: 2,
 				passed: false,
@@ -229,17 +235,17 @@ export const QuacksGame = {
 					player.gems += rewards.gem;
 					player.coins = rewards.coins + 100;
 					if (!player.boomed) {
-						player.victoryPoints += rewards.victoryPoints;
+						player.points += rewards.points;
 					}
 					player.gems += checkSpider(player);
 					const ghosts = checkGhost(player);
 					if (ghosts === 1) {
-						player.victoryPoints += 1;
+						player.points += 1;
 					} else if (ghosts === 2) {
-						player.victoryPoints += 1;
+						player.points += 1;
 						player.gems += 1;
 					} else if (ghosts >= 3) {
-						player.victoryPoints += 2;
+						player.points += 2;
 						player.start += 1;
 					}
 					player.bag = player.bagCopy;
@@ -264,7 +270,7 @@ export const QuacksGame = {
 					player.boomed = false;
 					player.passed = true;
 					const rewards = checkReward(player);
-					player.victoryPoints += rewards.victoryPoints;
+					player.points += rewards.points;
 				},
 				shop({ G, playerID }) {
 					const player = G.players[playerID];
@@ -305,13 +311,12 @@ export const QuacksGame = {
 			onEnd: ({ G, ctx }) => { 
 				for (let i = 0; i < ctx.numPlayers; i++) {
 					const player = G.players[i];
-					const rewards = checkReward(player);
-					player.coins = rewards.coins;
+					player.coins = 0;
 					player.bagCopy = player.bag;
 					player.next = player.start + 1;
 					player.boomed = false;
 					player.passed = false;
-					player.board = createBoard();
+					resetBoard(player.board);
 				}
 			}
       	},
