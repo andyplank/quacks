@@ -50,6 +50,8 @@ function QuacksBoard({ ctx, G, moves }) {
 				<div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 					<h3>Board</h3>
 					<div style={{ display: 'flex', flexWrap: 'wrap', width: 600, justifyContent: 'center', margin: '0 auto' }}>
+						<img src='/tokens/cauldron.svg'
+						 style= {{ position: 'absolute', height: '600px', zIndex: -1}}/>
 						{player.board.map((space, i) => {
 							const isStart = i === startIndex;
 							const token = getTokenStats(space.token);
@@ -66,7 +68,7 @@ function QuacksBoard({ ctx, G, moves }) {
 					</div>
 					   <div>
 						<img 
-						  style={{zIndex: -1, height: '150px' }}
+						  style={{zIndex: -1, height: '150px', position: 'relative', left: '220px', top: '20px' }}
 						  src={player.potion ? '/tokens/full-potion.svg' : '/tokens/empty-potion.svg'} 
 						  alt={player.potion ? "Full Potion" : "Empty Potion"} 
 						/>
