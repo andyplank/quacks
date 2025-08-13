@@ -55,4 +55,14 @@
   border-radius: 10px;
 }
 
+.spell-book-image {
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+}
+
+.spell-book-image:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
 

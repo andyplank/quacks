@@ -138,7 +138,8 @@ function SideBar({ isOpen, isShopOpen, isSpellBookOpen, onBuyToken, coins, toggl
                         <div style={{ 
                             display: 'flex',
                             flexDirection: 'column',
-                            overflow: 'scroll',
+                            overflowY: 'scroll',
+                            overflowX: 'hidden',
                             gap: '10px'
                         }}>
                             {/* Group tokens by their type and only show unique spell books */}
@@ -149,7 +150,6 @@ function SideBar({ isOpen, isShopOpen, isSpellBookOpen, onBuyToken, coins, toggl
                                 return (
                                     <div key={tokenType} style={{
                                         padding: '20px',
-                                        background: '#f5f5f5',
                                         borderRadius: '12px',
                                         marginBottom: '15px',
                                         position: 'relative',
@@ -173,6 +173,7 @@ function SideBar({ isOpen, isShopOpen, isSpellBookOpen, onBuyToken, coins, toggl
                                             <img 
                                                 src={token.bookImage} 
                                                 alt={`${tokenType} Book`} 
+                                                className='spell-book-image'
                                                 style={{
                                                     margin: '-100px',
                                                     height: '500px',
