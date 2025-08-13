@@ -2,22 +2,30 @@
     {
         "gem": false,
         "coins": 0,
-        "points": 0 
+        "points": 0,
+        "x": 243,
+        "y": 220
     },
         {
         "gem": false,
         "coins": 1,
-        "points": 0 
+        "points": 0,
+        "x": 293,
+        "y": 230
     },
     {
         "gem": false,
         "coins": 2,
-        "points": 0 
+        "points": 0,
+        "x": 330,
+        "y": 197
     },
     {
         "gem": false,
         "coins": 3,
-        "points": 0 
+        "points": 0,
+        "x": 303,
+        "y": 160
     },
     {
         "gem": false,

@@ -1,23 +1,24 @@
 import React from 'react';
 
-function BoardSpace({ space, isStart, token, onClick }) {
+function BoardSpace({ space, isStart, token, onClick, style }) {
     return (
         <button
             onClick={onClick}
             style={{
                 border: '1px solid #ccc',
-                width: 60,
-                height: 60,
+                width: 40,
+                height: 40,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                margin: 1,
                 fontSize: 10,
                 background: space.gem ? '#fff8f84f' : '#ffffff46',
                 position: 'relative',
                 cursor: 'pointer',
                 padding: 0,
+                borderRadius: '100%',
+                ...style,
             }}
         >
             {isStart && (
@@ -28,7 +29,6 @@ function BoardSpace({ space, isStart, token, onClick }) {
                     style={{ width: 35, height: 35, position: 'absolute'}} 
                 />
             )}
-            <div style={{ fontWeight: 'bold' }}>{space.coins}</div>
             <div style={{ color: '#888', position: 'absolute', bottom: 2, left: 2}}>VP: {space["points"]}</div>
             {space.gem && (
                 <img 
