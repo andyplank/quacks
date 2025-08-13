@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Client } from 'boardgame.io/react';
 import { QuacksGame, getTokenStats } from './QuacksGame';
 import BoardSpace from './BoardSpace';
-import ShopModal from './ShopModal';
+import SideBar from './SideBar';
 import BoomModal from './BoomModal';
 import ScoreOverview from './ScoreOverview';
 
 function QuacksBoard({ ctx, G, moves }) {
 	const [isShopOpen, setIsShopOpen] = useState(false);
+	const [isSpellBookOpen, setIsSpellBookOpen] = useState(false);
 	const player = G.players[ctx.currentPlayer];
 	const startIndex = player.start;
 	return (
@@ -73,10 +74,18 @@ function QuacksBoard({ ctx, G, moves }) {
 				</div>
 			</div>
 			<div style={{ position: 'relative', marginTop: '20px' }}>
-				<ShopModal 
-					isOpen={isShopOpen}
-					onClose={() => setIsShopOpen(false)}
-					onToggle={() => setIsShopOpen(!isShopOpen)}
+				<SideBar 
+					isOpen={isShopOpen || isSpellBookOpen}
+					isShopOpen={isShopOpen}
+					isSpellBookOpen={isSpellBookOpen}
+					toggleSpellBook={() => {
+						setIsShopOpen(false);
+						setIsSpellBookOpen(!isSpellBookOpen);
+					}}
+					toggleShop={() => {
+						setIsShopOpen(!isShopOpen);
+						setIsSpellBookOpen(false);
+					}}
 					onBuyToken={(tokenId) => {
 						moves.buyToken(tokenId);
 						if (!player.coins) setIsShopOpen(false);
@@ -89,12 +98,6 @@ function QuacksBoard({ ctx, G, moves }) {
 					hasPotion={player.potion}
 				/>
 			</div>
-			<img 
-                    src="/tokens/spider-book.svg" 
-                    alt="droplet" 
-                    title="droplet" 
-                    style={{ position: 'absolute'}} 
-                />
 		</div>
 	);
 }

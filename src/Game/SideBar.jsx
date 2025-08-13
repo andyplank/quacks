@@ -1,12 +1,13 @@
 import React from 'react';
 import { TOKEN_TYPES } from './QuacksGame';
 
-function ShopModal({ isOpen, onClose, onBuyToken, coins, onToggle, roundNumber, onRefill, onDroplet, gems, hasPotion }) {
+function SideBar({ isOpen, isShopOpen, isSpellBookOpen, onBuyToken, coins, toggleShop, toggleSpellBook, roundNumber, onRefill, onDroplet, gems, hasPotion }) {
     return (
         <div style={{ position: 'fixed', left: 0, top: 0, bottom: 0, zIndex: 1000, display: 'flex' }}>
             <div style={{
-                width: isOpen ? '300px' : '0',
+                width: isOpen ? isSpellBookOpen ? '500px': '300px' : '0',
                 backgroundColor: '#fff',
+                backgroundImage: isSpellBookOpen ? 'url(/page-background.png)' : 'none',
                 boxShadow: '2px 0 5px rgba(0,0,0,0.2)',
                 padding: isOpen ? '20px' : '0',
                 display: 'flex',
@@ -14,7 +15,7 @@ function ShopModal({ isOpen, onClose, onBuyToken, coins, onToggle, roundNumber, 
                 overflow: 'hidden',
                 transition: 'all 0.3s ease',
             }}>
-                {isOpen && (
+                {isShopOpen && (
                     <>
                         <div style={{ 
                             display: 'flex', 
@@ -23,17 +24,6 @@ function ShopModal({ isOpen, onClose, onBuyToken, coins, onToggle, roundNumber, 
                             marginBottom: '20px'
                         }}>
                             <h2 style={{ margin: 0 }}>Shop</h2>
-                            <button 
-                                onClick={onClose}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    fontSize: '20px',
-                                    cursor: 'pointer'
-                                }}
-                            >
-                                ×
-                            </button>
                         </div>
                         <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <strong>Available:</strong>
@@ -135,36 +125,122 @@ function ShopModal({ isOpen, onClose, onBuyToken, coins, onToggle, roundNumber, 
                         </div>
                     </>
                 )}
+                 {isSpellBookOpen && (
+                    <>
+                        <div style={{ 
+                            display: 'flex', 
+                            justifyContent: 'center', 
+                            alignItems: 'center',
+                            marginBottom: '20px',
+                        }}>
+                            <h2 style={{ margin: 0 }}>Spell Books</h2>
+                        </div>
+                        <div style={{ 
+                            display: 'flex',
+                            flexDirection: 'column',
+                            overflow: 'scroll',
+                            gap: '10px'
+                        }}>
+                            {/* Group tokens by their type and only show unique spell books */}
+                            {Array.from(new Set(TOKEN_TYPES.map(token => token.id.split(' ')[0]))).map(tokenType => {
+                                const token = TOKEN_TYPES.find(t => t.id.startsWith(tokenType));
+                                if (!token || !token.bookImage || token.saleStartRound > roundNumber) return null;
+                                
+                                return (
+                                    <div key={tokenType} style={{
+                                        padding: '20px',
+                                        background: '#f5f5f5',
+                                        borderRadius: '12px',
+                                        marginBottom: '15px',
+                                        position: 'relative',
+                                    }}>
+                                        <div style={{
+                                            alignItems: 'flex-start',
+                                            gap: '20px'
+                                        }}>
+                                            <div style={{ flex: 1 }}>
+                                                <h3 style={{ 
+                                                    marginTop: 0,
+                                                    color: token.color,
+                                                    fontSize: '1.2em'
+                                                }}>{tokenType}</h3>
+                                                <p style={{
+                                                    margin: '10px 0',
+                                                    lineHeight: '1.4',
+                                                    whiteSpace: 'pre-line'
+                                                }}>{token.bookDescription}</p>
+                                            </div>
+                                            <img 
+                                                src={token.bookImage} 
+                                                alt={`${tokenType} Book`} 
+                                                style={{
+                                                    margin: '-100px',
+                                                    height: '500px',
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </>
+                )}
             </div>
-            <button
-                onClick={onToggle}
-                style={{
-                    background: '#ff9800',
-                    color: '#fff',
-                    border: '1px solid #888',
-                    borderRadius: '0 4px 4px 0',
-                    padding: '12px',
+            <div style={{
                     display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    cursor: 'pointer',
-                    height: '80px',
                     flexDirection: 'column',
-                    justifyContent: 'center',
-                }}
-                title="Toggle Shop"
-            >
-                <img 
-                    src="/tokens/coin.svg" 
-                    alt="Shop" 
-                    style={{ width: '24px', height: '24px' }} 
-                />
-                <span style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
-                    Shop
-                </span>
-            </button>
+                }}>
+                <button
+                    onClick={toggleShop}
+                    style={{
+                        background: '#ff9800',
+                        color: '#fff',
+                        border: '0px solid transparent',
+                        borderRadius: '0 4px 4px 0',
+                        padding: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        cursor: 'pointer',
+                        height: '80px',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                    }}
+                    title="Toggle Shop"
+                >
+                    <img 
+                        src="/tokens/coin.svg" 
+                        alt="Shop" 
+                        style={{ width: '24px', height: '24px' }} 
+                    />
+                    <span style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
+                        Shop
+                    </span>
+                </button>
+                <button
+                    onClick={toggleSpellBook}
+                    style={{
+                        background: '#8d02ffff',
+                        color: '#fff',
+                        border: '0px solid transparent',
+                        borderRadius: '0 4px 4px 0',
+                        padding: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        cursor: 'pointer',
+                        height: '95px',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                    }}
+                    title="Toggle Spell Books"
+                >
+                    <span style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
+                        Spell Books
+                    </span>
+                </button>
+            </div>
         </div>
     );
 }
 
-export default ShopModal;
+export default SideBar;
