@@ -30,251 +30,352 @@
     {
         "gem": false,
         "coins": 4,
-        "points": 0 
+        "points": 0,
+        "x": 254,
+        "y": 158
     },
     {
         "gem": true,
         "coins": 5,
-        "points": 0 
+        "points": 0,
+        "x": 207,
+        "y": 172
     },
     {
         "gem": false,
         "coins": 6,
-        "points": 1
+        "points": 1,
+        "x": 181,
+        "y": 208
+
     },
     {
         "gem": false,
         "coins": 7,
-        "points": 1
+        "points": 1,
+        "x": 189,
+        "y": 255
     },
     {
         "gem":false,
         "coins": 8,
-        "points": 1
+        "points": 1,
+        "x": 230,
+        "y": 280
     },
     {
         "gem": true,
         "coins": 9,
-        "points": 1
+        "points": 1,
+        "x": 280,
+        "y": 290
     },
     {
         "gem": false,
         "coins": 10,
-        "points": 2
+        "points": 2,
+        "x": 333,
+        "y": 280
     },
     {
         "gem": false,
         "coins": 11,
-        "points": 2
+        "points": 2,
+        "x": 374,
+        "y": 247
     },
     {
         "gem": false,
         "coins": 12,
-        "points": 2
+        "points": 2,
+        "x": 390,
+        "y": 201
     },
     {
         "gem": true,
         "coins": 13,
-        "points": 2
+        "points": 2,
+        "x": 379,
+        "y": 156
     },
     {
         "gem": false,
         "coins": 14,
-        "points": 3
+        "points": 3,
+        "x": 345,
+        "y": 122
     },
     {
         "gem": false,
         "coins": 15,
-        "points": 3
+        "points": 3,
+        "x": 295,
+        "y": 106
     },
     {
         "gem": true,
         "coins": 15,
-        "points": 3
+        "points": 3,
+        "x": 245,
+        "y": 103
     },
     {
         "gem": false,
         "coins": 16,
-        "points": 3
+        "points": 3,
+        "x": 194,
+        "y": 116
     },
     {
         "gem": false,
         "coins": 16,
-        "points": 4
+        "points": 4,
+        "x": 152,
+        "y": 145
     },
     {
         "gem": false,
         "coins": 17,
-        "points": 4
+        "points": 4,
+        "x": 126,
+        "y": 184
     },
     {
         "gem": true,
         "coins": 17,
-        "points": 4
+        "points": 4,
+        "x": 121,
+        "y": 233
     },
     {
         "gem": false,
         "coins": 18,
-        "points": 4
+        "points": 4,
+        "x": 136,
+        "y": 279
     },
     {
         "gem": false,
         "coins": 18,
-        "points": 5
+        "points": 5,
+        "x": 170,
+        "y": 316
     },
     {
         "gem": false,
         "coins": 19,
-        "points": 5
+        "points": 5,
+        "x": 219,
+        "y": 338
     },
     {
         "gem": true,
         "coins": 19,
-        "points": 5
+        "points": 5,
+        "x": 269,
+        "y": 345
     },
     {
         "gem": false,
         "coins": 20,
-        "points": 5
+        "points": 5,
+        "x": 327,
+        "y": 339
     },
     {
         "gem": false,
         "coins": 20,
-        "points": 6
+        "points": 6,
+        "x": 376,
+        "y": 317
     },
     {
         "gem": false,
         "coins": 21,
-        "points": 6
+        "points": 6,
+        "x": 416,
+        "y": 286
     },
     {
         "gem": true,
         "coins": 21,
-        "points": 6
+        "points": 6,
+        "x": 440,
+        "y": 243
     },
     {
         "gem": false,
         "coins": 22,
-        "points": 7
+        "points": 7,
+        "x": 450,
+        "y": 193
     },
     {
         "gem": true,
         "coins": 22,
-        "points": 7
+        "points": 7,
+        "x": 439,
+        "y": 144
     },
     {
         "gem": false,
         "coins": 23,
-        "points": 7
+        "points": 7,
+        "x": 413,
+        "y": 102
     },
     {
         "gem": false,
         "coins": 23,
-        "points": 8
+        "points": 8,
+        "x": 376,
+        "y": 72
     },
     {
         "gem": false,
         "coins": 24,
-        "points": 8
+        "points": 8,
+        "x": 328,
+        "y": 55
     },
     {
         "gem": true,
         "coins": 24,
-        "points": 8
+        "points": 8,
+        "x": 277,
+        "y": 48
     },
     {
         "gem": false,
         "coins": 25,
-        "points": 9
+        "points": 9,
+        "x": 226,
+        "y": 51
     },
     {
-        "gem": false,
+        "gem": true,
         "coins": 25,
-        "points": 9
+        "points": 9,
+        "x": 177,
+        "y": 68
     },
     {
         "gem": false,
         "coins": 26,
-        "points": 9
+        "points": 9,
+        "x": 131,
+        "y": 91
     },
     {
         "gem": false,
         "coins": 26,
-        "points": 10
+        "points": 10,
+        "x": 92,
+        "y": 122
     },
     {
         "gem": false,
         "coins": 27,
-        "points": 10
+        "points": 10,
+        "x": 69,
+        "y": 166
     },
     {
         "gem": true,
         "coins": 27,
-        "points": 10
+        "points": 10,
+        "x": 59,
+        "y": 213
     },
     {
         "gem": false,
         "coins": 28,
-        "points": 11
+        "points": 11,
+        "x": 62,
+        "y": 259
     },
     {
         "gem": true,
         "coins": 28,
-        "points": 11
+        "points": 11,
+        "x": 81,
+        "y": 303
     },
     {
         "gem": false,
         "coins": 29,
-        "points": 11
+        "points": 11,
+        "x": 112,
+        "y": 344
     },
     {
         "gem": false,
         "coins": 29,
-        "points": 12
+        "points": 12,
+        "x": 155,
+        "y": 374
     },
     {
         "gem": false,
         "coins": 30,
-        "points": 12
+        "points": 12,
+        "x": 208,
+        "y": 392
     },
     {
         "gem": true,
         "coins": 30,
-        "points": 12
+        "points": 12,
+        "x": 263,
+        "y": 404
     },
     {
         "gem": false,
         "coins": 31,
-        "points": 12
+        "points": 12,
+        "x": 318,
+        "y": 397
     },
     {
         "gem": false,
         "coins": 31,
-        "points": 13
+        "points": 13,
+        "x": 374,
+        "y": 384
     },
     {
         "gem": false,
         "coins": 32,
-        "points": 13
+        "points": 13,
+        "x": 426,
+        "y": 355
     },
     {
         "gem": true,
         "coins": 32,
-        "points": 13
+        "points": 13,
+        "x": 464,
+        "y": 319
     },
     {
         "gem": false,
         "coins": 33,
-        "points": 14
+        "points": 14,
+        "x": 491,
+        "y": 270
     },
     {
         "gem": true,
         "coins": 33,
-        "points": 14
+        "points": 14,
+        "x": 499,
+        "y": 221
     },
     {
         "gem": false,
         "coins": 35,
-        "points": 15
+        "points": 15,
+        "x": 487,
+        "y": 139
     }
 ]

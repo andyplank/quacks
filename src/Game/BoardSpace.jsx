@@ -5,7 +5,8 @@ function BoardSpace({ space, isStart, token, onClick, style }) {
         <button
             onClick={onClick}
             style={{
-                border: '1px solid #ccc',
+                border: 'transparent',
+                background: 'transparent',
                 width: 40,
                 height: 40,
                 display: 'flex',
@@ -13,7 +14,6 @@ function BoardSpace({ space, isStart, token, onClick, style }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: 10,
-                background: space.gem ? '#fff8f84f' : '#ffffff46',
                 position: 'relative',
                 cursor: 'pointer',
                 padding: 0,
@@ -29,7 +29,6 @@ function BoardSpace({ space, isStart, token, onClick, style }) {
                     style={{ width: 35, height: 35, position: 'absolute'}} 
                 />
             )}
-            <div style={{ color: '#888', position: 'absolute', bottom: 2, left: 2}}>VP: {space["points"]}</div>
             {space.gem && (
                 <img 
                     src="/tokens/gem.svg" 
