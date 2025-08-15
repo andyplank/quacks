@@ -13,6 +13,9 @@ function QuacksBoard({ ctx, G, moves }) {
 	const startIndex = player.start;
 	return (
 		<div style={{ position: 'relative' }}>
+			<div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
+				<img src="/quacks-logo.png" alt="Quacks Board Game Logo" style={{ height: 140 }} />
+			</div>
 			<ScoreOverview player={player} />
 			{player.boomed && (
 				<>
@@ -47,13 +50,12 @@ function QuacksBoard({ ctx, G, moves }) {
 						</button>
 					</div>
 				)}
-				<div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-					<h3>Board</h3>
+				<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 					<div style={{ 
-							position: 'relative',
-							width: 600,
-							height: 600,
-						}}>
+						position: 'relative',
+						width: 600,
+						height: 600,
+					}}>
 						<img src='/tokens/cauldron.svg'
 						 style= {{ position: 'relative', height: '600px', zIndex: -1}}/>
 						{player.board.map((space, i) => {
@@ -86,7 +88,7 @@ function QuacksBoard({ ctx, G, moves }) {
 					</div>
 				</div>
 			</div>
-			<div style={{ position: 'relative', marginTop: '20px' }}>
+			<div style={{ position: 'relative'}}>
 				<SideBar 
 					isOpen={isShopOpen || isSpellBookOpen}
 					isShopOpen={isShopOpen}

@@ -41,16 +41,21 @@ function BoardSpace({ space, isStart, token, onClick, style }) {
                 <span
                     title={`Token: ${token.id}`}
                     style={{
-                        fontSize: 18,
+                        width: 24,
+                        height: 24,
                         marginTop: 2,
-                        background: token.image ? '#fff8f8ff' : token.color,
-                        borderRadius: '50%',
-                        padding: '2px 6px',
+                        backgroundImage: token.image ? `url(${token.image})` : undefined,
+                        backgroundColor: token.color,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        borderRadius: '100%',
                         border: '1px solid #888',
                         display: 'inline-block',
                     }}
                 >
-                    {token.value}
+                    <div style={{color: '#000000ff', textAlign: 'center', lineHeight: '24px'}}>
+                        {token.value}
+                    </div>
                 </span>
             )}
         </button>

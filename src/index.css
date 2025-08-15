@@ -3,6 +3,21 @@ body {
   font-family: "Delius", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-image: url('/public/rat-background.png');
+  background-position: center;
+  background-size: cover;
+  filter: blur(2px);
 }
 
 code {

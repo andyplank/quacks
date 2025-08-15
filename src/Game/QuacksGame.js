@@ -2,9 +2,9 @@ import boardData from './board.json';
 import { INVALID_MOVE } from 'boardgame.io/core';
 
 export const TOKEN_TYPES = [
-    { id: 'Boomberry 1', color: '#92bad1', image: '/tokens/boomberry.svg', value: 1, cost: -1, saleQuantity: -1, saleStartRound: 0, bookImage: '', bookDescription: '' },
-    { id: 'Boomberry 2', color: '#92bad1', image: '/tokens/boomberry.svg', value: 2, cost: -1, saleQuantity: -1, saleStartRound: 0, bookImage: '', bookDescription: '' },
-    { id: 'Boomberry 3', color: '#92bad1', image: '/tokens/boomberry.svg', value: 3, cost: -1, saleQuantity: -1, saleStartRound: 0, bookImage: '', bookDescription: '' },
+    { id: 'Boomberry 1', color: '#92bad1', image: '/tokens/boomberry.png', value: 1, cost: -1, saleQuantity: -1, saleStartRound: 0, bookImage: '', bookDescription: '' },
+    { id: 'Boomberry 2', color: '#92bad1', image: '/tokens/boomberry.png', value: 2, cost: -1, saleQuantity: -1, saleStartRound: 0, bookImage: '', bookDescription: '' },
+    { id: 'Boomberry 3', color: '#92bad1', image: '/tokens/boomberry.png', value: 3, cost: -1, saleQuantity: -1, saleStartRound: 0, bookImage: '', bookDescription: '' },
     { id: 'Spider 1', color: '#009b52', image: '/tokens/spider.svg', value: 1, cost: 4, saleQuantity: 10, saleStartRound: 0, bookImage: '/tokens/spider-book.svg', bookDescription: 'Take a ruby if this token is one of the final two placed in your cauldron.' },
     { id: 'Spider 2', color: '#009b52', image: '/tokens/spider.svg', value: 2, cost: 8, saleQuantity: 10, saleStartRound: 0, bookImage: '/tokens/spider-book.svg', bookDescription: 'Take a ruby if this token is one of the final two placed in your cauldron.' },
     { id: 'Spider 4', color: '#009b52', image: '/tokens/spider.svg', value: 4, cost: 14, saleQuantity: 10, saleStartRound: 0, bookImage: '/tokens/spider-book.svg', bookDescription: 'Take a ruby if this token is one of the final two placed in your cauldron.' },
