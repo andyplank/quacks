@@ -5,12 +5,14 @@ import BoardSpace from './BoardSpace';
 import SideBar from './SideBar';
 import BoomModal from './BoomModal';
 import ScoreOverview from './ScoreOverview';
+import { SocketIO } from 'boardgame.io/multiplayer'
 
-function QuacksBoard({ ctx, G, moves }) {
+function QuacksBoard({ ctx, G, moves, playerID }) {
 	const [isShopOpen, setIsShopOpen] = useState(false);
 	const [isSpellBookOpen, setIsSpellBookOpen] = useState(false);
-	const player = G.players[ctx.currentPlayer];
+	const player = G.players[playerID];
 	const startIndex = player.start;
+	const waiting = Object.keys(G.players).filter((p) => !(G.players[p].boomed || G.players[p].passed)).map((p) => p).join(', ');
 	return (
 		<div style={{ position: 'relative' }}>
 			<div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
@@ -29,7 +31,8 @@ function QuacksBoard({ ctx, G, moves }) {
 					/>
 				</>
 			)}
-			<h2>Player {ctx.currentPlayer}'s Turn</h2>
+			<h2>Phase: {ctx.phase}</h2>
+			<h2>Waiting on: {waiting}</h2>
 			<div>
 				<button className="btn-action" onClick={() => moves.drawToken()}>Draw Token</button>
 				<button className="btn-action" onClick={() => moves.pass()}>pass</button>
@@ -120,7 +123,7 @@ function QuacksBoard({ ctx, G, moves }) {
 const QuacksClient = Client({
 	game: QuacksGame,
 	board: QuacksBoard,
-	numPlayers: 1,
+	multiplayer: SocketIO({ server: 'localhost:8000' }),
 });
 
 export default QuacksClient;

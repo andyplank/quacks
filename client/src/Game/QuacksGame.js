@@ -1,5 +1,5 @@
 import boardData from './board.json';
-import { INVALID_MOVE } from 'boardgame.io/core';
+import { INVALID_MOVE, TurnOrder } from 'boardgame.io/core';
 
 export const TOKEN_TYPES = [
     { id: 'Boomberry 1', color: '#92bad1', image: '/tokens/boomberry.png', value: 1, cost: -1, saleQuantity: -1, saleStartRound: 0, bookImage: '', bookDescription: '' },
@@ -140,7 +140,8 @@ function placeToken(player, tokenId) {
 }
 
 export const QuacksGame = {
-    setup: ({ctx}) => { 
+	name: "quacks",
+    setup: ({ctx, playerID}) => { 
         const players = {};
         for (let i = 0; i < ctx.numPlayers; i++) {
             players[i] = {
@@ -156,13 +157,49 @@ export const QuacksGame = {
 				passed: false,
 				boomed: false,
 				potion: true,
-				options: []
+				options: [],
+				playerID: playerID
             };
         }
         return {
             players,
         };
     },
+
+	moves: {
+		pass({ G, playerID }) {
+			const player = G.players[playerID];
+			if (player.boomed || player.passed) return INVALID_MOVE;
+			player.passed = true;
+		}
+	},
+
+	turn: {
+		// The turn order.
+		order: TurnOrder.DEFAULT,
+
+
+		// Ends the turn if this returns true.
+		// Returning { next }, sets next playerID.
+		endIf: ({ G, ctx, random, ...plugins }) => {
+			if (G.players[ctx.currentPlayer].passed || G.players[ctx.currentPlayer].boomed) {
+				return true
+			}
+		},
+
+		// Called after each move.
+		// onMove: ({ G, ctx, events, random, ...plugins }) => G,
+
+		// Prevents ending the turn before a minimum number of moves.
+		// minMoves: 1,
+
+		// Ends the turn automatically after a number of moves.
+		// maxMoves: 1,
+
+		// Calls setActivePlayers with this as argument at the
+		// beginning of the turn.
+		activePlayers: { all: "all" },
+	},
 
 	phases: {
 		brew: {
@@ -234,7 +271,7 @@ export const QuacksGame = {
 					const player = G.players[i];
 					const rewards = checkReward(player);
 					player.gems += rewards.gem;
-					player.coins = rewards.coins + 100;
+					player.coins = rewards.coins;
 					if (!player.boomed) {
 						player.points += rewards.points;
 					}
@@ -269,14 +306,15 @@ export const QuacksGame = {
 				reward({ G, playerID }) {
 					const player = G.players[playerID];
 					if (!player.boomed) return INVALID_MOVE;
-					player.boomed = false;
-					player.passed = true;
 					const rewards = checkReward(player);
 					player.points += rewards.points;
+					player.boomed = false;
 				},
 				shop({ G, playerID }) {
 					const player = G.players[playerID];
 					if (!player.boomed) return INVALID_MOVE;
+					const rewards = checkReward(player);
+					player.coins = rewards.coins;
 					player.boomed = false;
 				},
 				refill({G, playerID}) {
